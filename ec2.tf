@@ -11,6 +11,12 @@ data "aws_subnet" "main" {
   }
 }
 
+data "aws_security_group" "allow_tls" {
+  filter{
+    name = "tag:Name"
+    values = ["allow.tls"]
+  }
+}
 # resource "aws_subnet" "main" {
 #   vpc_id     = aws_vpc.main.id
 #   cidr_block = "10.0.1.0/24"
@@ -20,30 +26,30 @@ data "aws_subnet" "main" {
 #   }
 # }
 
-resource "aws_security_group" "allow_tls" {
-  name        = "allow_tls"
-  description = "Allow TLS inbound traffic"
-  vpc_id      = data.aws_vpc.main.id
+# resource "aws_security_group" "allow_tls" {
+#   name        = "allow_tls"
+#   description = "Allow TLS inbound traffic"
+#   vpc_id      = data.aws_vpc.main.id
 
-  ingress {
-    description      = "TLS from VPC"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
+#   ingress {
+#     description      = "TLS from VPC"
+#     from_port        = 22
+#     to_port          = 22
+#     protocol         = "tcp"
+#     cidr_blocks      = ["0.0.0.0/0"]
+#   }
 
-  egress {
-    from_port        = 8080
-    to_port          = 8080
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
+#   egress {
+#     from_port        = 8080
+#     to_port          = 8080
+#     protocol         = "tcp"
+#     cidr_blocks      = ["0.0.0.0/0"]
+#   }
 
-  tags = {
-    Name = "allow_tls"
-  }
-}
+#   tags = {
+#     Name = "allow_tls"
+#   }
+# }
 
 resource "aws_instance" "web" {
   ami           = var.ami
