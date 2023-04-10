@@ -16,7 +16,6 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "terr-test"
-    key    = "path/to/my/key"
     region = "us-east-1"
   }
 }
