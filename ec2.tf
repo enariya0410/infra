@@ -14,7 +14,7 @@ data "aws_subnet" "main" {
 data "aws_security_group" "allow_tls" {
   filter{
     name = "tag:Name"
-    values = ["allow.tls"]
+    values = ["allow_tls"]
   }
 }
 # resource "aws_subnet" "main" {
