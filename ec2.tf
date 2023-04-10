@@ -56,7 +56,7 @@ resource "aws_instance" "web" {
   instance_type = var.instancetype
   associate_public_ip_address = true
   key_name = "test123"
-  vpc_security_group_ids = [aws_security_group.allow_tls.id]
+  vpc_security_group_ids = [data.aws_security_group.allow_tls.id]
   subnet_id =data.aws_subnet.main.id
   
 
