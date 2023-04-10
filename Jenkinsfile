@@ -24,7 +24,8 @@ pipeline {
         }
         stage('apply'){
             steps{
-                sh "terraform apply --var-file='${VARFILE}'"
+                input 'Apply?'
+                sh "terraform apply --var-file='${VARFILE}' --auto-approve"
             }
         }
     }
